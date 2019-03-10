@@ -32,11 +32,9 @@ Disciplina popularDisciplina(char *nome) {
     criarListaAlunoDisciplina(&lista2);
     strcpy(disciplina.nome, nome);
     disciplina.turma[0].numeroDaTurma = 1;
-    disciplina.turma[0].qtd = 0;
     disciplina.turma[0].listaAlunoDisciplina = lista;
     disciplina.turma[1].numeroDaTurma = 2;
     disciplina.turma[1].listaAlunoDisciplina = lista2;
-    disciplina.turma[1].qtd = 0;
     return disciplina;
 }
 
@@ -69,11 +67,10 @@ Turma *buscaTurma(DisciplinaList *list, char *disciplina, int turma) {
     Turma *t = (Turma *) malloc(sizeof(Turma));
     if (list == NULL) {
         t->numeroDaTurma = 0;
-        t->qtd = 0;
         return t;
     }
     if (strcmp(list->disciplina.nome, disciplina) == 0 && list->disciplina.turma->numeroDaTurma == turma) {
-        return &list->disciplina.turma[turma-1];
+        return &list->disciplina.turma[turma - 1];
     }
     buscaTurma(list->next, disciplina, turma);
 }
@@ -90,6 +87,19 @@ void insertAlunoDisciplina(ListaAlunoDisciplina *list, Aluno aluno) {
     }
 }
 
+
+void removerAlunoDisciplina(ListaAlunoDisciplina *list, Aluno aluno) {
+    ListaAlunoDisciplina *temp;
+    if (list->next != NULL) {
+        temp = list->next;
+        if (temp->aluno.ra == aluno.ra) {
+            list->next = temp->next;
+            free(temp);
+        }
+    } else {
+        removerAlunoDisciplina(list->next, aluno);
+    }
+}
 
 void cadastrarDisciplina(DisciplinaList *list) {
     system("clear");

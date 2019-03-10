@@ -26,7 +26,7 @@ void inserirProfessor(ProfessorList *list, Professor professor) {
 
 Professor populateProfessor(char *nome, int ra) {
     Professor professor;
-    professor.nome = (char*) malloc(strlen(nome) +1);
+    professor.nome = (char *) malloc(strlen(nome) + 1);
     strcpy(professor.nome, nome);
     professor.ra = ra;
     return professor;

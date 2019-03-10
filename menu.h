@@ -6,11 +6,16 @@
 #define PARADIGMAS_MENU_H
 
 void menuInicial();
+
 void menuAluno();
+
 void menuProfessor();
+
 void menuDisciplina();
+
 void menuMatricula();
 
+void menuCancelarMatricula();
 
 
 #endif //PARADIGMAS_MENU_H

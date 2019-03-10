@@ -27,7 +27,7 @@ void inserirProfessor(ProfessorList *list, Professor professor);
 Professor populateProfessor(char *nome, int ra);
 
 // Printa todos os professoress da lista de professoress
-void printaProfessores(ProfessorList *list) ;
+void printaProfessores(ProfessorList *list);
 
 // Pede um professor e o insere na lista de professoress
 void cadastrarProfessor(ProfessorList *list);

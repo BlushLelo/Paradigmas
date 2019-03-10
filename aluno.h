@@ -26,10 +26,10 @@ void insertElement(AlunoList *list, Aluno aluno);
 // Retorna uma struct de um aluno populada
 Aluno populateAluno(char *nome, int ra);
 
-Aluno* buscaAluno(AlunoList *list, int ra);
+Aluno *buscaAluno(AlunoList *list, int ra);
 
 // Printa todos os alunos da lista de alunos
-void printAluno(AlunoList *list) ;
+void printAluno(AlunoList *list);
 
 // Pede um aluno e o insere na lista de Alunos
 void cadastrarAluno(AlunoList *list);

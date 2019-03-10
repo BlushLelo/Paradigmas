@@ -12,8 +12,9 @@ void menuInicial() {
     printf("2- Cadastrar Disciplinas\n");
     printf("3- Cadastrar Professores\n");
     printf("4- Matricular alunos em disciplinas\n");
-    printf("5- Vincular professores em disciplinas\n");
-    printf("5- Sair\n");
+    printf("5- Desmatricular alunos de disciplinas\n");
+    printf("6- Vincular professores em disciplinas\n");
+    printf("7- Sair\n");
     printf("Informe a opção desejada: ");
 }
 
@@ -32,4 +33,9 @@ void menuDisciplina() {
 
 void menuMatricula() {
     printf("*****************Matricula de Alunos*****************\n");
+}
+
+
+void menuCancelarMatricula() {
+    printf("*****************Cancelar Matricula de Alunos*****************\n");
 }

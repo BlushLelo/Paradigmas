@@ -4,7 +4,8 @@
 #include "matricula.h"
 #include "menu.h"
 
-void selector(int opcao, ProfessorList *listaDeAlunos, DisciplinaList *listaDeDisciplinas, ProfessorList *listaDeProfessores) ;
+void selector(int opcao, ProfessorList *listaDeAlunos, DisciplinaList *listaDeDisciplinas,
+              ProfessorList *listaDeProfessores);
 
 int main() {
     /* Bloco para declarar nós para listas de entidades*/
@@ -20,14 +21,15 @@ int main() {
     /*---------------------------------*/
     int opcao;
     do {
-    menuInicial();
-    scanf("%d", &opcao);
-    selector(opcao, alunoList, disciplinaList, professorList);
-    } while (opcao != 5);
+        menuInicial();
+        scanf("%d", &opcao);
+        selector(opcao, alunoList, disciplinaList, professorList);
+    } while (opcao != 7);
     return 0;
 }
 
-void selector(int opcao, ProfessorList *listaDeAlunos, DisciplinaList *listaDeDisciplinas, ProfessorList *listaDeProfessores) {
+void selector(int opcao, ProfessorList *listaDeAlunos, DisciplinaList *listaDeDisciplinas,
+              ProfessorList *listaDeProfessores) {
     switch (opcao) {
         case 1: {
             cadastrarAluno(listaDeAlunos);
@@ -44,6 +46,12 @@ void selector(int opcao, ProfessorList *listaDeAlunos, DisciplinaList *listaDeDi
         case 4 : {
             matricularAlunos(listaDeDisciplinas, listaDeAlunos);
             break;
+        }
+        case 5 : {
+            cancelarMatricula(listaDeDisciplinas, listaDeAlunos);
+        }
+        default: {
+            printf("Opção inválida\n Seleciona uma válida!.");
         }
     }
 }

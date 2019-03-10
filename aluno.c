@@ -40,7 +40,7 @@ void printAluno(AlunoList *list) {
     printAluno(list->next);
 }
 
-Aluno* buscaAluno(AlunoList *list, int ra) {
+Aluno *buscaAluno(AlunoList *list, int ra) {
     Aluno *aluno = (Aluno *) malloc(sizeof(Aluno));;
     if (list == NULL) {
         aluno->ra = 0;

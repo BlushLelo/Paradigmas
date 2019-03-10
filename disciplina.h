@@ -19,13 +19,12 @@ typedef struct {
 typedef struct {
     int numeroDaTurma;
     ListaAlunoDisciplina *listaAlunoDisciplina;
-    int qtd;
+    Professor professor;
 } Turma;
 
 //Struct de uma Disciplina
 typedef struct {
     char nome[100];
-    Professor professor;
     Turma turma[2];
 } Disciplina;
 
@@ -41,6 +40,9 @@ void criarListaDeDisciplinas(DisciplinaList **pList);
 
 // InsertLista
 void insertAlunoDisciplina(ListaAlunoDisciplina *list, Aluno aluno);
+
+// RemoveLista
+void removerAlunoDisciplina(ListaAlunoDisciplina *list, Aluno aluno);
 
 // Insere um aluno no final na lista de alunos
 void inserirDisciplina(DisciplinaList *list, Disciplina disciplina);
