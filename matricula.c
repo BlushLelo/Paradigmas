@@ -126,9 +126,9 @@ void cancelarMatricula(DisciplinaList *lista, AlunoList *listaAluno) {
         printf("1- novo aluno\n");
         printf("2- Sair\n");
         scanf("%d", &opcao);
+        Aluno *aluno = buscaAluno(listaAluno, ra);
+        loteMatricula[indexAlunos].aluno = *aluno;
         if (opcao == 1) {
-            Aluno *aluno = buscaAluno(listaAluno, ra);
-            loteMatricula[indexAlunos].aluno = *aluno;
             indexAlunos++;
         }
     } while (opcao == 1);
