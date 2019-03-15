@@ -26,19 +26,19 @@ void inserirProfessor(ProfessorList *list, Professor professor) {
 
 Professor populateProfessor(char *nome, int ra) {
     Professor professor;
-    professor.nome = (char *) malloc(strlen(nome) + 1);
     strcpy(professor.nome, nome);
     professor.ra = ra;
+    professor.vinculado = 0;
     return professor;
 }
 
-void printaProfessores(ProfessorList *list) {
+void printarProfessores(ProfessorList *list) {
     if (list == NULL) {
         return;
     }
     printf("Nome: %s\n", list->professor.nome);
     printf("Ra: %d\n", list->professor.ra);
-    printaProfessores(list->next);
+    printarProfessores(list->next);
 }
 
 void printaProfessor(ProfessorList *list, int ra) {
@@ -69,4 +69,18 @@ void cadastrarProfessor(ProfessorList *list) {
     inserirProfessor(list, a);
     printaProfessor(list, ra);
     printf("Professor cadastrado com sucesso");
+}
+
+Professor *buscaProfessor(ProfessorList *professorList, int raProfessor) {
+    Professor *professor = (Professor *) malloc(sizeof(Professor));;
+    if (professorList == NULL) {
+        professor->ra = 0;
+        return professor;
+    }
+    if (professorList->professor.ra == raProfessor) {
+        professor->ra = professorList->professor.ra;
+        strcpy(professor->nome, professorList->professor.nome);
+        return professor;
+    }
+    buscaProfessor(professorList->next, raProfessor);
 }

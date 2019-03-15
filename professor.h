@@ -7,14 +7,15 @@
 
 //Struct de um Professor
 typedef struct {
-    char *nome;
+    char nome[100];
     int ra;
+    int vinculado;
 } Professor;
 
 //Struct Lista de Professor
 typedef struct {
     Professor professor;
-    struct AlunoList *next;
+    struct ProfessorList *next;
 } ProfessorList;
 
 // Cria Lista de professoress
@@ -27,11 +28,13 @@ void inserirProfessor(ProfessorList *list, Professor professor);
 Professor populateProfessor(char *nome, int ra);
 
 // Printa todos os professoress da lista de professoress
-void printaProfessores(ProfessorList *list);
+void printarProfessores(ProfessorList *list);
 
 // Pede um professor e o insere na lista de professoress
 void cadastrarProfessor(ProfessorList *list);
 
 void printaProfessor(ProfessorList *list, int ra);
+
+Professor *buscaProfessor(ProfessorList *professor, int raProfessor);
 
 #endif //PARADIGMAS_PROFESSOR_H

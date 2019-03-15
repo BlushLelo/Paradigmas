@@ -4,7 +4,9 @@
 #include "matricula.h"
 #include "menu.h"
 
-void selector(int opcao, ProfessorList *listaDeAlunos, DisciplinaList *listaDeDisciplinas,
+#define OPCAO_SAIR 16
+
+void selector(int opcao, AlunoList *listaDeAlunos, DisciplinaList *listaDeDisciplinas,
               ProfessorList *listaDeProfessores);
 
 int main() {
@@ -24,11 +26,11 @@ int main() {
         menuInicial();
         scanf("%d", &opcao);
         selector(opcao, alunoList, disciplinaList, professorList);
-    } while (opcao != 7);
+    } while (opcao != OPCAO_SAIR);
     return 0;
 }
 
-void selector(int opcao, ProfessorList *listaDeAlunos, DisciplinaList *listaDeDisciplinas,
+void selector(int opcao, AlunoList *listaDeAlunos, DisciplinaList *listaDeDisciplinas,
               ProfessorList *listaDeProfessores) {
     switch (opcao) {
         case 1: {
@@ -49,9 +51,61 @@ void selector(int opcao, ProfessorList *listaDeAlunos, DisciplinaList *listaDeDi
         }
         case 5 : {
             cancelarMatricula(listaDeDisciplinas, listaDeAlunos);
+            break;
         }
+        case 6: {
+            vincularProfessores(listaDeDisciplinas, listaDeProfessores);
+            break;
+        }
+        case 7: {
+            cancelarVinculoProfessores(listaDeDisciplinas, listaDeProfessores);
+            break;
+        }
+        case 8: {
+            menuPrintarTodosOsAlunos();
+            printarAlunos(listaDeAlunos->next);
+            break;
+        }
+        case 9: {
+            menuPrintarTodasAsDisciplinas();
+            printarDisciplinas(listaDeDisciplinas->next);
+            break;
+        }
+        case 10: {
+            menuPrintarTodosOsProfessores();
+            printarProfessores(listaDeProfessores->next);
+            break;
+        }
+        case 11: {
+            menuPrintarTodasAsDisciplinasDeUmAluno();
+            printarListaDeDisciplinasDeUmAluno(listaDeDisciplinas);
+            break;
+        }
+
+        case 12: {
+            printarListaDeAlunoEmUmaDisciplinaETurma(listaDeDisciplinas);
+            break;
+        }
+
+        case 13: {
+            printarListaDeAlunosEmUmaDisciplina(listaDeDisciplinas);
+            break;
+        }
+
+        case 14: {
+            printarTodasAsDisciplinasMinistradasPorUmProfessor(listaDeDisciplinas);
+            break;
+        }
+
+        case 15: {
+            printarProfessoresVinculadoADisciplinas(listaDeDisciplinas);
+            break;
+        }
+
         default: {
-            printf("Opção inválida\n Seleciona uma válida!.");
+            if (opcao != OPCAO_SAIR) {
+                printf("Opção inválida\n");
+            }
         }
     }
 }

@@ -28,7 +28,6 @@ typedef struct {
     Turma turma[2];
 } Disciplina;
 
-
 //Struct Lista de Disciplinas
 typedef struct {
     Disciplina disciplina;
@@ -50,6 +49,22 @@ void inserirDisciplina(DisciplinaList *list, Disciplina disciplina);
 // Criar Lista de alunos dentro da Disciplina
 void criarListaAlunoDisciplina(ListaAlunoDisciplina **aList);
 
+void printarAlunosDeUmaDisciplinaTurma(ListaAlunoDisciplina *list);
+
+void printarListaDeDisciplinasDeUmAluno(DisciplinaList *list);
+
+void printDisciplinas(DisciplinaList *list, int ra);
+
+void printarListaDeAlunoEmUmaDisciplinaETurma(DisciplinaList *disciplinas);
+
+void printarListaDeAlunosEmUmaDisciplina(DisciplinaList *disciplinaList);
+
+void printarDisciplinasDeUmProfessor(DisciplinaList *disciplinaList, int ra);
+
+void printarTodasAsDisciplinasMinistradasPorUmProfessor(DisciplinaList *disciplinaList);
+
+void printarProfessoresVinculadoADisciplinas(DisciplinaList *disciplinaList);
+
 // Retorna uma struct de uma disciplina populada
 Disciplina popularDisciplina(char *nome);
 
@@ -59,12 +74,15 @@ void printarDisciplinas(DisciplinaList *list);
 // Busca disciplinaPorTurma
 Turma *buscaTurma(DisciplinaList *list, char *disciplina, int turma);
 
-void printarMatriculados(DisciplinaList *list, char *disciplina, int turma);
-
 // Printa disciplina especifica
 void printarDisciplina(DisciplinaList *list, char *disciplina);
+
+Disciplina *buscarDisciplina(DisciplinaList *list, char *disciplina);
+
+int buscaAlunoNaDisciplina(ListaAlunoDisciplina *list, int ra);
 
 // Pede um aluno e o insere na lista de Alunos
 void cadastrarDisciplina(DisciplinaList *list);
 
 #endif //PARADIGMAS_DISCIPLINA_H
+

@@ -31,13 +31,13 @@ Aluno populateAluno(char *nome, int ra) {
     return aluno;
 }
 
-void printAluno(AlunoList *list) {
+void printarAlunos(AlunoList *list) {
     if (list == NULL) {
         return;
     }
     printf("Nome: %s\n", list->aluno.nome);
     printf("Ra: %d\n", list->aluno.ra);
-    printAluno(list->next);
+    printarAlunos(list->next);
 }
 
 Aluno *buscaAluno(AlunoList *list, int ra) {

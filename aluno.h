@@ -29,7 +29,7 @@ Aluno populateAluno(char *nome, int ra);
 Aluno *buscaAluno(AlunoList *list, int ra);
 
 // Printa todos os alunos da lista de alunos
-void printAluno(AlunoList *list);
+void printarAlunos(AlunoList *list);
 
 // Pede um aluno e o insere na lista de Alunos
 void cadastrarAluno(AlunoList *list);

@@ -32,8 +32,10 @@ Disciplina popularDisciplina(char *nome) {
     criarListaAlunoDisciplina(&lista2);
     strcpy(disciplina.nome, nome);
     disciplina.turma[0].numeroDaTurma = 1;
+    disciplina.turma[0].professor.ra = 0;
     disciplina.turma[0].listaAlunoDisciplina = lista;
     disciplina.turma[1].numeroDaTurma = 2;
+    disciplina.turma[1].professor.ra = 0;
     disciplina.turma[1].listaAlunoDisciplina = lista2;
     return disciplina;
 }
@@ -42,13 +44,27 @@ void criarListaAlunoDisciplina(ListaAlunoDisciplina **aList) {
     *aList = (ListaAlunoDisciplina *) malloc(sizeof(ListaAlunoDisciplina));
 }
 
+void printarAlunosDeUmaDisciplinaTurma(ListaAlunoDisciplina *list) {
+    if (list == NULL) {
+        return;
+    }
+    if (list->aluno.ra != 0) {
+        printf("Nome: %s\n", list->aluno.nome);
+    }
+    printarAlunosDeUmaDisciplinaTurma(list->next);
+}
+
 void printarDisciplinas(DisciplinaList *list) {
     if (list == NULL) {
         return;
     }
     printf("Nome: %s\n", list->disciplina.nome);
-    printf("Turma 1: %d\n", list->disciplina.turma[0].numeroDaTurma);
-    printf("Turma 2: %d\n", list->disciplina.turma[1].numeroDaTurma);
+    if (list->disciplina.turma[0].professor.ra != 0 && list->disciplina.turma[0].professor.vinculado != 0) {
+        printf("Professor turma 1: %s\n", list->disciplina.turma[0].professor.nome);
+    }
+    if (list->disciplina.turma[1].professor.ra != 0 && list->disciplina.turma[1].professor.vinculado != 0) {
+        printf("Professor turma 2: %s\n", list->disciplina.turma[1].professor.nome);
+    }
     printarDisciplinas(list->next);
 }
 
@@ -63,13 +79,29 @@ void printarDisciplina(DisciplinaList *list, char *disciplina) {
     printarDisciplina(list->next, disciplina);
 }
 
+Disciplina *buscarDisciplina(DisciplinaList *list, char *disciplina) {
+    Disciplina *d = (Disciplina *) malloc(sizeof(Disciplina));
+    if (list == NULL) {
+        strcpy(d->nome, "");
+        return d;
+    }
+    if (strcmp(list->disciplina.nome, disciplina) == 0) {
+        return &list->disciplina;
+    }
+    buscarDisciplina(list->next, disciplina);
+}
+
 Turma *buscaTurma(DisciplinaList *list, char *disciplina, int turma) {
     Turma *t = (Turma *) malloc(sizeof(Turma));
     if (list == NULL) {
         t->numeroDaTurma = 0;
         return t;
     }
-    if (strcmp(list->disciplina.nome, disciplina) == 0 && list->disciplina.turma->numeroDaTurma == turma) {
+    if (strcmp(list->disciplina.nome, disciplina) == 0 && list->disciplina.turma[0].numeroDaTurma == turma) {
+        return &list->disciplina.turma[turma - 1];
+    }
+
+    if (strcmp(list->disciplina.nome, disciplina) == 0 && list->disciplina.turma[1].numeroDaTurma == turma) {
         return &list->disciplina.turma[turma - 1];
     }
     buscaTurma(list->next, disciplina, turma);
@@ -113,6 +145,92 @@ void cadastrarDisciplina(DisciplinaList *list) {
 
     Disciplina d = popularDisciplina(disciplina);
     inserirDisciplina(list, d);
-    printarDisciplina(list, d.nome);
     printf("Disciplina cadastrada com sucesso");
+}
+
+void printarListaDeDisciplinasDeUmAluno(DisciplinaList *list) {
+    int ra;
+    printf("Informe o ra do aluno: ");
+    scanf("%d", &ra);
+    printDisciplinas(list->next, ra);
+}
+
+void printDisciplinas(DisciplinaList *list, int ra) {
+    if (list == NULL) {
+        return;
+    }
+    if (buscaAlunoNaDisciplina(list->disciplina.turma[0].listaAlunoDisciplina, ra)) {
+        printf("Disciplina: %s\n", list->disciplina.nome);
+    }
+    if (buscaAlunoNaDisciplina(list->disciplina.turma[1].listaAlunoDisciplina, ra)) {
+        printf("Disciplina %s\n", list->disciplina.nome);
+    }
+    printDisciplinas(list->next, ra);
+}
+
+int buscaAlunoNaDisciplina(ListaAlunoDisciplina *list, int ra) {
+    if (list == NULL) {
+        return 0;
+    }
+    if (list->aluno.ra == ra) {
+        return 1;
+    }
+    buscaAlunoNaDisciplina(list->next, ra);
+}
+
+void printarListaDeAlunoEmUmaDisciplinaETurma(DisciplinaList *disciplinaList) {
+    int turma;
+    char disciplina[100];
+    printf("Disciplina: ");
+    scanf("%s", disciplina);
+    printf("Turma: ");
+    scanf("%d", &turma);
+    Disciplina *d = buscarDisciplina(disciplinaList, disciplina);
+    printarAlunosDeUmaDisciplinaTurma(d->turma[turma - 1].listaAlunoDisciplina);
+}
+
+void printarListaDeAlunosEmUmaDisciplina(DisciplinaList *disciplinaList) {
+    char disciplina[100];
+    printf("Disciplina: ");
+    scanf("%s", disciplina);
+    Disciplina *d = buscarDisciplina(disciplinaList, disciplina);
+    printf("Turma 1 \n");
+    printarAlunosDeUmaDisciplinaTurma(d->turma[0].listaAlunoDisciplina);
+    printf("Turma 2 \n");
+    printarAlunosDeUmaDisciplinaTurma(d->turma[1].listaAlunoDisciplina);
+}
+
+void printarTodasAsDisciplinasMinistradasPorUmProfessor(DisciplinaList *disciplinaList) {
+    int ra;
+    printf("Ra professor: ");
+    scanf("%d", &ra);
+    printarDisciplinasDeUmProfessor(disciplinaList, ra);
+}
+
+void printarDisciplinasDeUmProfessor(DisciplinaList *disciplinaList, int ra) {
+    if (disciplinaList == NULL) {
+        return;
+    }
+    if (disciplinaList->disciplina.turma[0].professor.ra == ra &&
+        disciplinaList->disciplina.turma[0].professor.vinculado == 1) {
+        printf("Disciplina %s, turma: %d \n", disciplinaList->disciplina.nome,
+               disciplinaList->disciplina.turma[0].numeroDaTurma);
+    }
+    if (disciplinaList->disciplina.turma[1].professor.ra == ra &&
+        disciplinaList->disciplina.turma[1].professor.vinculado == 1) {
+        printf("Disciplina %s, turma: %d \n", disciplinaList->disciplina.nome,
+               disciplinaList->disciplina.turma[1].numeroDaTurma);
+    }
+    printarDisciplinasDeUmProfessor(disciplinaList->next, ra);
+}
+
+void printarProfessoresVinculadoADisciplinas(DisciplinaList *disciplinaList) {
+    if (disciplinaList == NULL) {
+        return;
+    }
+    if (disciplinaList->disciplina.turma[0].professor.vinculado == 1 ||
+        disciplinaList->disciplina.turma[1].professor.vinculado == 1) {
+        printf("Professor: %s \n", disciplinaList->disciplina.turma[0].professor.nome);
+    }
+    printarProfessoresVinculadoADisciplinas(disciplinaList->next);
 }

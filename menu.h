@@ -17,5 +17,16 @@ void menuMatricula();
 
 void menuCancelarMatricula();
 
+void menuVincularProfessor();
+
+void menuRemoverProfessorDeDisciplina();
+
+void menuPrintarTodosOsAlunos();
+
+void menuPrintarTodasAsDisciplinas();
+
+void menuPrintarTodosOsProfessores();
+
+void menuPrintarTodasAsDisciplinasDeUmAluno();
 
 #endif //PARADIGMAS_MENU_H
